@@ -16,3 +16,5 @@ bun add @react-navigation/native-stack
 ```
 
 * Buttons Tabs install `npm install @react-navigation/bottom-tabs | bun add @react-navigation/bottom-tabs`
+
+### Color transitions library (Reng kecisleri) =>```bun add expo-linear-gradient```
