@@ -12,17 +12,22 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign, Feather } from '@expo/vector-icons';
 import { themeColors } from '../theme';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, selectCartItemById, selectCartItemQuantity } from '../store';
+import { addToCart, CartItem, decrementQuantity, incrementQuantity } from '../store/cartSlice';
 
 const windowWidth = Dimensions.get('window').width;
 const BG_IMAGE_HEIGHT = windowWidth * 0.75;
 const ITEM_CONTAINER_SIZE = windowWidth * 0.65;
 const ITEM_IMAGE_SIZE = ITEM_CONTAINER_SIZE;
 
-export default function DetailScreen(props: any) {
+export default function DetailScreen(props: { route: { params: CartItem } }) {
   const item = props.route.params;
-  console.log(item);
   const [size, setSize] = useState('small');
   const navigation = useNavigation();
+  const cartItem = useSelector((state: RootState) => selectCartItemById(state, item.id));
+  const quantity = useSelector((state: RootState) => selectCartItemQuantity(state, item.id));
+  const dispatch = useDispatch();
 
   return (
     <View className="flex-1 bg-white">
@@ -138,11 +143,20 @@ export default function DetailScreen(props: any) {
             {/* minus plus */}
 
             <View className="flex-row items-center gap-4 p-1 px-4">
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (quantity > 1) dispatch(decrementQuantity({ id: item.id }));
+                }}>
                 <AntDesign name="minuscircle" size={24} color={themeColors.bgPrimary} />
               </TouchableOpacity>
-              <Text className="text-base text-gray-600">2</Text>
-              <TouchableOpacity onPress={() => {}}>
+              <Text className="text-base text-gray-600">{quantity}</Text>
+              <TouchableOpacity onPress={() => {
+               if(cartItem){
+                 dispatch(incrementQuantity({ id: item.id }));
+               }else{
+                dispatch(addToCart(item));
+               }
+              }}>
                 <AntDesign name="pluscircle" size={24} color={themeColors.bgPrimary} />
               </TouchableOpacity>
             </View>

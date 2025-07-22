@@ -6,7 +6,7 @@ export interface ICoffeCategory {
 export interface ICoffeeItem {
   id: number;
   name: string;
-  price: string;
+  price: number;
   volume: string;
   stars: string;
   image: any;
@@ -40,7 +40,7 @@ export const coffeeItems: ICoffeeItem[] = [
   {
     id: 1,
     name: "Black Coffee",
-    price: "25.50",
+    price: 25.50,
     volume: "116 ml",
     stars: "4.6",
     image: require("../../assets/images/coffee1.png"),
@@ -50,7 +50,7 @@ export const coffeeItems: ICoffeeItem[] = [
   {
     id: 2,
     name: "Cappuccino",
-    price: "15.50",
+    price: 15.50,
     volume: "110 ml",
     stars: "4.3",
     image: require("../../assets/images/coffee2.png"),
@@ -60,7 +60,7 @@ export const coffeeItems: ICoffeeItem[] = [
   {
     id: 3,
     name: "Espresso",
-    price: "30.00",
+    price: 30.00,
     volume: "100 ml",
     stars: "4.0",
     image: require("../../assets/images/coffee3.png"),
@@ -70,7 +70,7 @@ export const coffeeItems: ICoffeeItem[] = [
   {
     id: 4,
     name: "Latte",
-    price: "10.30",
+    price: 10.30,
     volume: "80 ml",
     stars: "3.5",
     image: require("../../assets/images/coffee4.png"),
@@ -80,7 +80,7 @@ export const coffeeItems: ICoffeeItem[] = [
   {
     id: 5,
     name: "Mocha",
-    price: "23.10",
+    price: 23.10,
     volume: "120 ml",
     stars: "4.7",
     image: require("../../assets/images/coffee5.png"),
