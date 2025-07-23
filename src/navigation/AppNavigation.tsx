@@ -18,7 +18,6 @@ export type RootStackParamList = {
   detail: ICoffeeItem;
   cart: undefined;
   home: undefined;
-  fav: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

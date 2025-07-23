@@ -15,14 +15,13 @@ import { AntDesign, Feather } from '@expo/vector-icons';
 import { themeColors } from '../theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, selectCartItemById, selectCartItemQuantity } from '../store';
-import { addToCart, CartItem, decrementQuantity, incrementQuantity } from '../store/cartSlice';
+import { addToCart, decrementQuantity, incrementQuantity } from '../store/cartSlice';
 import { RootStackParamList } from '../navigation/AppNavigation';
 import { ICoffeeItem } from '../constants';
 
 const windowWidth = Dimensions.get('window').width;
 const BG_IMAGE_HEIGHT = windowWidth * 0.75;
 const ITEM_CONTAINER_SIZE = windowWidth * 0.65;
-const ITEM_IMAGE_SIZE = ITEM_CONTAINER_SIZE;
 
 // DetailScreen üçün route parametrlərini düzgün istifadə et
 type DetailScreenRouteProp = RouteProp<RootStackParamList, 'detail'>;
@@ -78,8 +77,8 @@ export default function DetailScreen(props: DetailScreenProps) {
             <Image
               source={item.image}
               style={{
-                width: ITEM_IMAGE_SIZE,
-                height: ITEM_IMAGE_SIZE,
+                width: ITEM_CONTAINER_SIZE,
+                height: ITEM_CONTAINER_SIZE,
               }}
               resizeMode="contain"
             />
