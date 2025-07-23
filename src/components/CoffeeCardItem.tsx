@@ -5,14 +5,11 @@ import { themeColors } from '../theme';
 import { AntDesign } from '@expo/vector-icons';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { ICoffeeItem } from '../constants';
+import { RootStackParamList } from '../navigation/AppNavigation';
 
 interface IProps {
   item: ICoffeeItem;
 }
-
-interface INavigationParams {
-  detail: ICoffeeItem;
-};
 
 export default function CoffeeCardItem({ item }: IProps) {
   const { height: SCREEN_H, width: SCREEN_W } = Dimensions.get('window');
@@ -20,7 +17,7 @@ export default function CoffeeCardItem({ item }: IProps) {
   const CARD_WIDTH = SCREEN_W * 0.7;
   const CARD_HEIGHT = SCREEN_H * 0.5;
 
-   const navigation = useNavigation<NavigationProp<INavigationParams>>();
+   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
     <View

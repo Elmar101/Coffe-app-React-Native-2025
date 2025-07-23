@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ICoffeeItem } from '../constants';
 
 export interface CartItem extends ICoffeeItem {
-  quantity: number;
+  quantity?: number;
 }
 
 interface IState {
@@ -10,38 +10,35 @@ interface IState {
 }
 const initialState: IState = {
   items: [],
-}
+} 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action) => {
-      console.log('Adding to cart:', action.payload);
+    addToCart: (state: IState, action: PayloadAction<CartItem>) => {
         const existingItem = state.items.find((item) => item.id === action.payload.id);
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
+        if (!existingItem) {
           state.items.push({ ...action.payload, quantity: 1 });
-        }
+        } 
     },
-    removeFromCart: (state, action) => {
-      state.items = state.items.filter((item) => item.id !== action.payload.id)
+    removeFromCart: (state: IState, action: PayloadAction<ICoffeeItem["id"]>) => {
+      state.items = state.items.filter((item) => item.id !== action.payload);
     },
     clearCart: (state) => {
       state.items = [];
     },
-    incrementQuantity: (state, action) => {
-      const item = state.items.find((item) => item.id === action.payload.id);
-      if (item) {
-        item.quantity += 1;
+    incrementQuantity: (state: IState, action: PayloadAction<ICoffeeItem["id"]>) => {
+      const existingItem = state.items.find((item) => item.id === action.payload);
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity ?? 1) + 1;
       }
     },
-    decrementQuantity: (state, action) => {
-      const item = state.items.find((item) => item.id === action.payload.id);
-      if (item && item.quantity > 1) {
-        item.quantity--;
+    decrementQuantity: (state: IState, action: PayloadAction<ICoffeeItem["id"]>) => {
+      const item = state.items.find((item) => item.id === action.payload);
+      if (item && item?.quantity! > 1) {
+        item.quantity!--;
       } else if (item && item.quantity === 1) {
-        state.items = state.items.filter((i) => i.id !== action.payload.id);
+        state.items = state.items.filter((i) => i.id !== action.payload);
       }
     }
   },

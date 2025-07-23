@@ -9,22 +9,32 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AntDesign, Feather } from '@expo/vector-icons';
 import { themeColors } from '../theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, selectCartItemById, selectCartItemQuantity } from '../store';
 import { addToCart, CartItem, decrementQuantity, incrementQuantity } from '../store/cartSlice';
+import { RootStackParamList } from '../navigation/AppNavigation';
+import { ICoffeeItem } from '../constants';
 
 const windowWidth = Dimensions.get('window').width;
 const BG_IMAGE_HEIGHT = windowWidth * 0.75;
 const ITEM_CONTAINER_SIZE = windowWidth * 0.65;
 const ITEM_IMAGE_SIZE = ITEM_CONTAINER_SIZE;
 
-export default function DetailScreen(props: { route: { params: CartItem } }) {
-  const item = props.route.params;
+// DetailScreen üçün route parametrlərini düzgün istifadə et
+type DetailScreenRouteProp = RouteProp<RootStackParamList, 'detail'>;
+
+type DetailScreenProps = {
+  route: DetailScreenRouteProp; // Route-ı öz parametrləri ilə qəbul et
+};
+
+export default function DetailScreen(props: DetailScreenProps) {
+  const item = props.route.params as ICoffeeItem;
   const [size, setSize] = useState('small');
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const cartItem = useSelector((state: RootState) => selectCartItemById(state, item.id));
   const quantity = useSelector((state: RootState) => selectCartItemQuantity(state, item.id));
   const dispatch = useDispatch();
@@ -145,17 +155,16 @@ export default function DetailScreen(props: { route: { params: CartItem } }) {
             <View className="flex-row items-center gap-4 p-1 px-4">
               <TouchableOpacity
                 onPress={() => {
-                  if (quantity > 1) dispatch(decrementQuantity({ id: item.id }));
+                  if (quantity && quantity > 1) dispatch(decrementQuantity(item.id));
                 }}>
                 <AntDesign name="minuscircle" size={24} color={themeColors.bgPrimary} />
               </TouchableOpacity>
               <Text className="text-base text-gray-600">{quantity}</Text>
               <TouchableOpacity onPress={() => {
-               if(cartItem){
-                 dispatch(incrementQuantity({ id: item.id }));
-               }else{
-                dispatch(addToCart(item));
+               if(!cartItem){
+                 dispatch(addToCart(item));
                }
+                dispatch(incrementQuantity(item.id));
               }}>
                 <AntDesign name="pluscircle" size={24} color={themeColors.bgPrimary} />
               </TouchableOpacity>
@@ -167,9 +176,12 @@ export default function DetailScreen(props: { route: { params: CartItem } }) {
               <Feather name="shopping-bag" size={24} color="black" />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => {}}
+              onPress={() => {
+                dispatch(addToCart(cartItem ? { ...cartItem, quantity } : item));
+                navigation.navigate('cart');
+              }}
               className="ml-4 flex-1 rounded-full bg-primary p-4">
-              <Text className="text-center text-base font-semibold text-white">Buy Now</Text>
+              <Text className="text-center text-base font-semibold text-white">Səbətə Əlavə Et</Text>
             </TouchableOpacity>
           </View>
         </View>

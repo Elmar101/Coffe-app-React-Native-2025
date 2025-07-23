@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
 import cartReducer, { CartItem } from './cartSlice';
+import { safePrice } from '../helpers';
 
 // Store configuration
 export const store = configureStore({
@@ -18,7 +19,7 @@ export const selectCartItems = (state: RootState): CartItem[] => state.cart.item
 
 export const selectCartTotalPrice = createSelector(
   [selectCartItems],
-  (items) => items.reduce((total, item) => total + item.price * item.quantity, 0)
+  (items) => items.reduce((total, item) => total + safePrice(item.price) * item.quantity, 0)
 );
 
 export const selectCartItemCount = createSelector(

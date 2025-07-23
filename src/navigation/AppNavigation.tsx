@@ -12,14 +12,21 @@ import CartScreen from '../screens/CartScreen';
 import { ComponentProps } from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../store';
+import { ICoffeeItem } from '../constants';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const TAB_BAR_HEIGHT = Math.round(SCREEN_HEIGHT * 0.065);
 const TAB_BAR_RADIUS = Math.round(TAB_BAR_HEIGHT / 2);
 
 type EntypoNameType = ComponentProps<typeof Entypo>['name'];
+export type RootStackParamList = {
+  detail?: ICoffeeItem;
+  cart?: undefined;
+  home?: undefined;
+  // add other routes here if needed
+};
 
 const iconNameObj: Record<string, EntypoNameType> = {
   home: 'home',
@@ -70,8 +77,13 @@ export default function AppNavigation() {
             },
             headerShown: false,
           }}>
-          <Stack.Screen name="Home" component={HomeTab} options={{ headerShown: false }} />
+          <Stack.Screen name="home" component={HomeTab} options={{ headerShown: false }} />
           <Stack.Screen name="detail" component={DetailScreen} options={{ headerShown: false }} />
+          <Stack.Screen
+            name="cart"
+            component={CartScreen}
+            options={{ headerShown: false, contentStyle: { backgroundColor: '#fff' } }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
