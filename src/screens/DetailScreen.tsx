@@ -33,7 +33,7 @@ type DetailScreenProps = {
 export default function DetailScreen(props: DetailScreenProps) {
   const item = props.route.params as ICoffeeItem;
   const [size, setSize] = useState('small');
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, "detail">>();
   const cartItem = useSelector((state: RootState) => selectCartItemById(state, item.id));
   const quantity = useSelector((state: RootState) => selectCartItemQuantity(state, item.id));
   const dispatch = useDispatch();
