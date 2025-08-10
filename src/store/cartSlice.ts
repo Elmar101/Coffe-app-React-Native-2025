@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ICoffeeItem } from '../constants';
 
 export interface CartItem extends ICoffeeItem {
-  quantity?: number;
+  quantity: number;
 }
 
 interface IState {

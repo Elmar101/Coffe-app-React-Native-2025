@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "coffe-app-react-native",
-    "slug": "coffe-app-react-native",
+    "slug": "coffee-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,22 @@
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
-    }
+    },
+    "plugins": [
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "react-native",
+          "organization": "cybernet-eq"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "6b0d62a8-4a8c-4004-94b6-9f5b6f3548e4"
+      }
+    },
+    "owner": "elmar101"
   }
 }

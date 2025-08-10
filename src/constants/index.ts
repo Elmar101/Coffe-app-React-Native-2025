@@ -11,6 +11,7 @@ export interface ICoffeeItem {
   stars: string;
   image: any;
   desc: string;
+  quantity: number; // Optional, used in cart
 }
 
 export const categories: ICoffeCategory[] = [
@@ -45,6 +46,7 @@ export const coffeeItems: ICoffeeItem[] = [
     stars: "4.6",
     image: require("../../assets/images/coffee1.png"),
     desc: "The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.",
+    quantity: 1,
   },
 
   {
@@ -55,6 +57,7 @@ export const coffeeItems: ICoffeeItem[] = [
     stars: "4.3",
     image: require("../../assets/images/coffee2.png"),
     desc: "The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.",
+    quantity: 1,
   },
 
   {
@@ -65,6 +68,7 @@ export const coffeeItems: ICoffeeItem[] = [
     stars: "4.0",
     image: require("../../assets/images/coffee3.png"),
     desc: "The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.",
+    quantity: 1,
   },
 
   {
@@ -75,6 +79,7 @@ export const coffeeItems: ICoffeeItem[] = [
     stars: "3.5",
     image: require("../../assets/images/coffee4.png"),
     desc: "The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.",
+    quantity: 1,
   },
 
   {
@@ -85,5 +90,6 @@ export const coffeeItems: ICoffeeItem[] = [
     stars: "4.7",
     image: require("../../assets/images/coffee5.png"),
     desc: "The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.",
+    quantity: 1,
   },
 ];
